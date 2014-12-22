@@ -43,7 +43,7 @@ module Notable
   self.track_job_method = proc{|data| Notable::Job.create!(data) }
   self.slow_job_threshold = 60
 
-  def self.note(note_type, note = nil)
+  def self.track(note_type, note = nil)
     (RequestStore.store[:notable_notes] ||= []) << {note_type: note_type, note: note}
   end
 
