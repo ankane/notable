@@ -1,16 +1,19 @@
 # Notable
 
-Track notable requests and background jobs
+Notable tracks notable requests and backgrounds and stores them in your database.  What makes a request or job notable?  There are a number of default situations, but ultimately you decide what interests you.
 
-See users affected by:
+By default, Notable tracks:
 
 - errors
-- slow requests, jobs, and timeouts
 - 404s
+- slow requests and jobs
+- timeouts
 - validation failures
 - CSRF failures
 - unpermitted parameters
 - blocked and throttled requests
+
+Notable requests are associated with a user whenever possible, making it great for helping customers.  You can also store custom notes.
 
 :tangerine: Battle-tested at [Instacart](https://www.instacart.com)
 
@@ -37,8 +40,9 @@ For a web interface, check out [Notable Web](https://github.com/ankane/notable_w
 A `Notable::Request` is created for:
 
 - errors
-- slow requests and timeouts
 - 404s
+- slow requests
+- timeouts
 - validation failures
 - [CSRF failures](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf)
 - unpermitted parameters
@@ -57,6 +61,12 @@ Currently works with Delayed Job and Sidekiq.
 
 ```ruby
 Notable.track(note_type, note)
+```
+
+Like
+
+```ruby
+Notable.track("Signed In", "Platform: iOS")
 ```
 
 ## Customize
