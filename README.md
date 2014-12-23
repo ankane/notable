@@ -54,6 +54,7 @@ A `Notable::Job` is created for:
 
 - errors
 - slow jobs
+- validation failures
 
 Currently works with Delayed Job and Sidekiq.
 
