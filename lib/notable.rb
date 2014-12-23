@@ -69,6 +69,7 @@ module Notable
         yield
       rescue Exception => e
         exception = e
+        track_error(e)
       ensure
         notes = Notable.notes
         Notable.clear_notes
@@ -76,7 +77,6 @@ module Notable
       runtime = Time.now - start_time
 
       safely do
-        notes << {note_type: "Error", note: "#{exception.class.name}: #{exception.message}"} if exception
         notes << {note_type: "Slow Job"} if runtime > Notable.slow_job_threshold
 
         notes.each do |note|
