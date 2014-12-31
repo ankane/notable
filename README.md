@@ -1,6 +1,8 @@
 # Notable
 
-Notable tracks notable requests and backgrounds and stores them in your database.  What makes a request or job notable?  There are a number of default situations, but ultimately you decide what interests you.
+Wouldn’t it be great to see when one of your users encounters errors, timeouts, and validation failures directly in your admin pages?  Now you can.  Notable makes helping users easier than ever.
+
+Notable tracks notable requests and background jobs and stores them in your database.  What makes a request or job notable?  There are a number of default situations, but ultimately you decide what interests you.
 
 By default, Notable tracks:
 
@@ -13,7 +15,7 @@ By default, Notable tracks:
 - unpermitted parameters
 - blocked and throttled requests
 
-Notable requests are associated with a user whenever possible, making it great for helping customers.  You can also store custom notes.
+You can track custom notes as well.
 
 :tangerine: Battle-tested at [Instacart](https://www.instacart.com)
 
@@ -46,7 +48,11 @@ A `Notable::Request` is created for:
 - validation failures
 - [CSRF failures](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf)
 - unpermitted parameters
-- [blocked and throttled requests](https://github.com/kickstarter/rack-attack)
+- blocked and throttled requests
+
+For timeouts, use [Slowpoke](https://github.com/ankane/slowpoke).
+
+For blocked and throttled requests, use [Rack Attack](https://github.com/kickstarter/rack-attack).
 
 ## Jobs
 
@@ -67,7 +73,7 @@ Notable.track(note_type, note)
 Like
 
 ```ruby
-Notable.track("Signed In", "Platform: iOS")
+Notable.track("Auth Event", "Signed In")
 ```
 
 ## Customize
