@@ -56,6 +56,8 @@ For blocked and throttled requests, use [Rack Attack](https://github.com/kicksta
 
 ## Jobs
 
+Wouldn’t it be great to have a record of exact jobs that fail?
+
 A `Notable::Job` is created for:
 
 - errors
