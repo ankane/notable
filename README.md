@@ -1,6 +1,8 @@
 # Notable
 
-Wouldn’t it be great to see when one of your users encounters an error, timeout, or validation failure?  Now you can - directly in your admin pages.  Notable makes helping users easier than ever.
+:star2: Extraordinary insight into your users and background jobs
+
+Wouldn’t it be great to see when one of your users encounters an error, timeout, or validation failure?  Now you can - directly in your admin pages.
 
 Notable tracks notable requests and background jobs and stores them in your database.  What makes a request or job notable?  There are a number of default situations, but ultimately you decide what interests you.
 
