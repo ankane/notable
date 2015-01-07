@@ -115,7 +115,7 @@ module Notable
   end
 
   def self.track_task(task, &block)
-    if Notable.enabled
+    if Notable.enabled and !["db:migrate"].include?(task)
       exception = nil
       notes = nil
       start_time = Time.now
