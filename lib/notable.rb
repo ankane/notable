@@ -156,7 +156,7 @@ end
 
 ActionDispatch::DebugExceptions.send(:include, Notable::DebugExceptions)
 
-if defined?(Rake) and Gem::Version.new(Rake::VERSION) > Gem::Version.new("0.9.3")
+if defined?(Rake) and Gem::Version.new(Rake::VERSION) >= Gem::Version.new("0.9.3")
   module Rake
     class Application
       def top_level
