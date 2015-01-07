@@ -31,6 +31,10 @@ module Notable
     # jobs
     attr_accessor :track_job_method
     attr_accessor :slow_job_threshold
+
+    # tasks
+    attr_accessor :track_task_method
+    attr_accessor :slow_task_threshold
   end
   self.enabled = true
 
@@ -42,6 +46,10 @@ module Notable
   # jobs
   self.track_job_method = proc{|data| Notable::Job.create!(data) }
   self.slow_job_threshold = 60
+
+  # tasks
+  self.track_task_method = proc{|data| Notable::Task.create!(data) }
+  self.slow_task_threshold = 10 * 60 # 10 minutes
 
   def self.track(note_type, note = nil)
     (RequestStore.store[:notable_notes] ||= []) << {note_type: note_type, note: note}
@@ -100,6 +108,62 @@ module Notable
     end
   end
 
+  def self.track_task(task, &block)
+    if Notable.enabled
+      exception = nil
+      notes = nil
+      start_time = Time.now
+      begin
+        yield
+      rescue Exception => e
+        exception = e
+        track_error(e)
+      ensure
+        notes = Notable.notes
+        Notable.clear_notes
+      end
+      runtime = Time.now - start_time
+
+      safely do
+        notes.unshift({note_type: "Run"})
+        notes << {note_type: "Slow Task"} if runtime > Notable.slow_task_threshold
+
+        notes.each do |note|
+          data = {
+            note_type: note[:note_type],
+            note: note[:note],
+            task: task,
+            runtime: runtime
+          }
+
+          Notable.track_task_method.call(data)
+        end
+      end
+
+      raise exception if exception
+    else
+      yield
+    end
+  end
+
 end
 
 ActionDispatch::DebugExceptions.send(:include, Notable::DebugExceptions)
+
+if defined?(Rake)
+  module Rake
+    class Application
+      def top_level
+        run_with_threads do
+          if options.show_tasks
+            display_tasks_and_comments
+          elsif options.show_prereqs
+            display_prerequisites
+          else
+            top_level_tasks.each { |task_name| Notable.track_task(task_name){ invoke_task(task_name) } }
+          end
+        end
+      end
+    end
+  end
+end
