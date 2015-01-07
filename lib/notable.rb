@@ -48,7 +48,13 @@ module Notable
   self.slow_job_threshold = 60
 
   # tasks
-  self.track_task_method = proc{|data| Notable::Task.create!(data) }
+  self.track_task_method = proc do |data|
+    begin
+      Notable::Task.create!(data)
+    rescue NameError
+      # do nothing - not loaded
+    end
+  end
   self.slow_task_threshold = 10 * 60 # 10 minutes
 
   def self.track(note_type, note = nil)
@@ -150,7 +156,7 @@ end
 
 ActionDispatch::DebugExceptions.send(:include, Notable::DebugExceptions)
 
-if defined?(Rake)
+if defined?(Rake) and Gem::Version.new(Rake::VERSION) > Gem::Version.new("0.9.3")
   module Rake
     class Application
       def top_level
