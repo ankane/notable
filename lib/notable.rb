@@ -1,7 +1,7 @@
 require "notable/version"
 
 require "request_store"
-require "robustly"
+require "safely_block"
 require "action_dispatch/middleware/debug_exceptions"
 
 # middleware
