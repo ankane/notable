@@ -21,7 +21,7 @@ By default, Notable tracks:
 
 You can track custom notes as well.
 
-:tangerine: Battle-tested at [Instacart](https://www.instacart.com)
+:tangerine: Battle-tested at [Instacart](https://www.instacart.com/opensource)
 
 ## Installation
 
