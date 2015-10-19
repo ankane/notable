@@ -114,6 +114,12 @@ Notable.track_request_method = proc do |data, env|
 end
 ```
 
+Skip tracking CSRF failures
+
+```ruby
+skip_before_filter :track_unverified_request
+```
+
 ### Jobs
 
 Set slow threshold
