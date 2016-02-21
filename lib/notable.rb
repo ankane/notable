@@ -99,7 +99,4 @@ module Notable
       yield
     end
   end
-
 end
-
-ActionDispatch::DebugExceptions.send(:include, Notable::DebugExceptions)
