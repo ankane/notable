@@ -24,7 +24,6 @@ module Notable
       def copy_migration
         migration_template "create_jobs.rb", "db/migrate/create_notable_jobs.rb"
       end
-
     end
   end
 end

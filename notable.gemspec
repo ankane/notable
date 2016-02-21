@@ -1,15 +1,15 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'notable/version'
+require "notable/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "notable"
   spec.version       = Notable::VERSION
   spec.authors       = ["Andrew Kane"]
   spec.email         = ["andrew@chartkick.com"]
-  spec.summary       = %q{Track notable requests and background jobs}
-  spec.description   = %q{Track notable requests and background jobs}
+  spec.summary       = "Track notable requests and background jobs"
+  spec.description   = "Track notable requests and background jobs"
   spec.homepage      = "https://github.com/ankane/notable"
   spec.license       = "MIT"
 

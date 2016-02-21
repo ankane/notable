@@ -3,7 +3,7 @@ module Notable
     class Sidekiq
       WRAPPER_CLASSES = Set.new(["ActiveJob::QueueAdapters::SidekiqAdapter::JobWrapper"])
 
-      def call(worker, job, queue)
+      def call(_worker, job, queue)
         name =
           if WRAPPER_CLASSES.include?(job["class"])
             job["args"].first["job_class"]
