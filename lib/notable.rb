@@ -15,14 +15,11 @@ require "notable/validation_errors"
 require "notable/debug_exceptions"
 require "notable/throttle"
 
-ActiveSupport.on_load(:active_job) do
-  require "notable/job_extensions"
-  include Notable::JobExtensions
-end
-
 module Notable
   class << self
     attr_accessor :enabled
+    attr_accessor :requests_enabled
+    attr_accessor :jobs_enabled
 
     # requests
     attr_accessor :track_request_method
@@ -34,6 +31,16 @@ module Notable
     attr_accessor :slow_job_threshold
   end
   self.enabled = true
+  self.requests_enabled = true
+  self.jobs_enabled = true
+
+  def self.jobs_enabled?
+    enabled && jobs_enabled
+  end
+
+  def self.requests_enabled?
+    enabled && requests_enabled
+  end
 
   # requests
   self.track_request_method = proc{|data, env| Notable::Request.create!(data) }
@@ -61,7 +68,7 @@ module Notable
   end
 
   def self.track_job(job, job_id, queue, created_at)
-    if Notable.enabled
+    if Notable.enabled && Notable.jobs_enabled
       exception = nil
       notes = nil
       start_time = Time.now
@@ -99,5 +106,12 @@ module Notable
     else
       yield
     end
+  end
+end
+
+ActiveSupport.on_load(:active_job) do
+  if Notable.jobs_enabled?
+    require "notable/job_extensions"
+    include Notable::JobExtensions
   end
 end

@@ -3,9 +3,10 @@ module Notable
     isolate_namespace Notable
 
     initializer "notable" do |app|
-      app.config.middleware.insert_after RequestStore::Middleware, Notable::Middleware
-
-      ActionDispatch::DebugExceptions.send(:prepend, Notable::DebugExceptions)
+      if Notable.requests_enabled?
+        app.config.middleware.insert_after RequestStore::Middleware, Notable::Middleware
+        ActionDispatch::DebugExceptions.send(:prepend, Notable::DebugExceptions)
+      end
     end
   end
 end
