@@ -35,7 +35,7 @@ And run:
 
 ```sh
 rails generate notable:requests
-rails generate notable:jobs # optional
+rails generate notable:jobs
 rake db:migrate
 ```
 

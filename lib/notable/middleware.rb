@@ -35,10 +35,7 @@ module Notable
         if notes.any?
           request = ActionDispatch::Request.new(env)
 
-          # hack since Rails modifies PATH_INFO
-          # and we don't want to modify env
-          url = request.base_url + request.script_name + env["REQUEST_PATH"]
-          url << "?#{request.query_string}" unless request.query_string.empty?
+          url = request.original_url
 
           controller = env["action_controller.instance"]
           action = controller && "#{controller.params["controller"]}##{controller.params["action"]}"
