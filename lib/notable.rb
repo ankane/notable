@@ -1,7 +1,7 @@
 require "notable/version"
 
 require "request_store"
-require "safely_block"
+require "safely/core"
 require "action_dispatch/middleware/debug_exceptions"
 
 # middleware
@@ -68,44 +68,40 @@ module Notable
   end
 
   def self.track_job(job, job_id, queue, created_at)
-    if Notable.enabled && Notable.jobs_enabled
-      exception = nil
-      notes = nil
-      start_time = Time.now
-      queued_time = created_at ? start_time - created_at : nil
-      begin
-        yield
-      rescue Exception => e
-        exception = e
-        track_error(e)
-      ensure
-        notes = Notable.notes
-        Notable.clear_notes
-      end
-      runtime = Time.now - start_time
-
-      safely do
-        notes << {note_type: "Slow Job"} if runtime > Notable.slow_job_threshold
-
-        notes.each do |note|
-          data = {
-            note_type: note[:note_type],
-            note: note[:note],
-            job: job,
-            job_id: job_id,
-            queue: queue,
-            runtime: runtime,
-            queued_time: queued_time
-          }
-
-          Notable.track_job_method.call(data)
-        end
-      end
-
-      raise exception if exception
-    else
+    exception = nil
+    notes = nil
+    start_time = Time.now
+    queued_time = created_at ? start_time - created_at : nil
+    begin
       yield
+    rescue Exception => e
+      exception = e
+      track_error(e)
+    ensure
+      notes = Notable.notes
+      Notable.clear_notes
     end
+    runtime = Time.now - start_time
+
+    Safely.safely do
+      notes << {note_type: "Slow Job"} if runtime > Notable.slow_job_threshold
+
+      notes.each do |note|
+        data = {
+          note_type: note[:note_type],
+          note: note[:note],
+          job: job,
+          job_id: job_id,
+          queue: queue,
+          runtime: runtime,
+          queued_time: queued_time
+        }
+
+        Notable.track_job_method.call(data)
+      end
+    end
+
+    raise exception if exception
   end
 end
 
