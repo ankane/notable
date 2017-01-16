@@ -117,7 +117,7 @@ end
 Skip tracking CSRF failures
 
 ```ruby
-skip_before_filter :track_unverified_request
+skip_before_action :track_unverified_request
 ```
 
 ### Jobs

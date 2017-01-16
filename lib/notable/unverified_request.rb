@@ -3,7 +3,7 @@ module Notable
     extend ActiveSupport::Concern
 
     included do
-      prepend_before_filter :track_unverified_request
+      prepend_before_action :track_unverified_request
     end
 
     def track_unverified_request
