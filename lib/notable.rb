@@ -15,9 +15,10 @@ require "notable/validation_errors"
 require "notable/debug_exceptions"
 require "notable/throttle"
 
-# jobs
-require "notable/job_backends/sidekiq" if defined?(Sidekiq)
-require "notable/job_backends/delayed_job" if defined?(Delayed::Job)
+ActiveSupport.on_load(:active_job) do
+  require "notable/job_extensions"
+  include Notable::JobExtensions
+end
 
 module Notable
   class << self
@@ -59,12 +60,12 @@ module Notable
     RequestStore.store.delete(:notable_notes)
   end
 
-  def self.track_job(job, job_id, queue, created_at, &block)
+  def self.track_job(job, job_id, queue, created_at)
     if Notable.enabled
       exception = nil
       notes = nil
       start_time = Time.now
-      queued_time = start_time - created_at
+      queued_time = created_at ? start_time - created_at : nil
       begin
         yield
       rescue Exception => e
