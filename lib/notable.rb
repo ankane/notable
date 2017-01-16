@@ -34,12 +34,12 @@ module Notable
   self.requests_enabled = true
   self.jobs_enabled = true
 
-  def self.jobs_enabled?
-    enabled && jobs_enabled
-  end
-
   def self.requests_enabled?
     enabled && requests_enabled
+  end
+
+  def self.jobs_enabled?
+    enabled && jobs_enabled
   end
 
   # requests
