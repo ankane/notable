@@ -43,12 +43,12 @@ module Notable
   end
 
   # requests
-  self.track_request_method = proc{|data, env| Notable::Request.create!(data) }
-  self.user_method = proc{|env| env["warden"].user if env["warden"] }
+  self.track_request_method = -> (data, env) { Notable::Request.create!(data) }
+  self.user_method = -> (env) { env["warden"].user if env["warden"] }
   self.slow_request_threshold = 5
 
   # jobs
-  self.track_job_method = proc{|data| Notable::Job.create!(data) }
+  self.track_job_method = -> (data) { Notable::Job.create!(data) }
   self.slow_job_threshold = 60
 
   def self.track(note_type, note = nil)

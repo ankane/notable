@@ -101,17 +101,17 @@ Notable.slow_request_threshold = 5 # seconds (default)
 Custom user method
 
 ```ruby
-Notable.user_method = proc do |env|
+Notable.user_method = -> (env) {
   env["warden"].try(:user) || env["action_controller.instance"].try(:current_visit)
-end
+}
 ```
 
 Custom track method
 
 ```ruby
-Notable.track_request_method = proc do |data, env|
+Notable.track_request_method = -> (data, env) {
   Notable::Request.create!(data)
-end
+}
 ```
 
 Skip tracking CSRF failures
@@ -131,9 +131,9 @@ Notable.slow_job_threshold = 60 # seconds (default)
 Custom track method
 
 ```ruby
-Notable.track_job_method = proc do |data|
+Notable.track_job_method = -> (data) {
   Notable::Job.create!(data)
-end
+}
 ```
 
 ## TODO
