@@ -1,4 +1,4 @@
-## 0.2.0 [unreleased]
+## 0.2.0
 
 - Switched to ActiveJob for jobs
 - Fixed deprecation warnings

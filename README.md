@@ -68,8 +68,6 @@ A `Notable::Job` is created for:
 - slow jobs
 - validation failures
 
-Currently works with Delayed Job and Sidekiq.
-
 ## Manual Tracking
 
 ```ruby
