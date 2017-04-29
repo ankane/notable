@@ -22,7 +22,13 @@ module Notable
       end
 
       def copy_migration
-        migration_template "create_jobs.rb", "db/migrate/create_notable_jobs.rb"
+        migration_template "create_jobs.rb", "db/migrate/create_notable_jobs.rb", migration_version: migration_version
+      end
+
+      def migration_version
+        if ActiveRecord::VERSION::MAJOR >= 5
+          "[#{ActiveRecord::VERSION::MAJOR}.#{ActiveRecord::VERSION::MINOR}]"
+        end
       end
     end
   end
