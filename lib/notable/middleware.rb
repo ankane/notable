@@ -44,6 +44,11 @@ module Notable
           user = Notable.user_method.call(env)
 
           notes.each do |note|
+            ip = request.remote_ip
+            if ip && Notable.mask_ips
+              ip = Notable.mask_ip(ip)
+            end
+
             data = {
               note_type: note[:note_type],
               note: note[:note],
@@ -52,7 +57,7 @@ module Notable
               status: status,
               params: params,
               request_id: request.uuid,
-              ip: request.remote_ip,
+              ip: ip,
               user_agent: request.user_agent,
               url: url,
               referrer: request.referer,

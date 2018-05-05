@@ -25,6 +25,7 @@ module Notable
     attr_accessor :track_request_method
     attr_accessor :user_method
     attr_accessor :slow_request_threshold
+    attr_accessor :mask_ips
 
     # jobs
     attr_accessor :track_job_method
@@ -33,6 +34,7 @@ module Notable
   self.enabled = true
   self.requests_enabled = true
   self.jobs_enabled = true
+  self.mask_ips = false
 
   def self.requests_enabled?
     enabled && requests_enabled
@@ -102,6 +104,17 @@ module Notable
     end
 
     raise exception if exception
+  end
+
+  def self.mask_ip(ip)
+    addr = IPAddr.new(ip)
+    if addr.ipv4?
+      # set last octet to 0
+      addr.mask(24).to_s
+    else
+      # set last 80 bits to zeros
+      addr.mask(48).to_s
+    end
   end
 end
 
