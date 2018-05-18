@@ -118,6 +118,12 @@ Skip tracking CSRF failures
 skip_before_action :track_unverified_request
 ```
 
+Anonymize IP addresses
+
+```ruby
+Notable.mask_ips = true
+```
+
 ### Jobs
 
 Set slow threshold
