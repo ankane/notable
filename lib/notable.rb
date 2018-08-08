@@ -45,7 +45,7 @@ module Notable
   end
 
   # requests
-  self.track_request_method = -> (data, env) { Notable::Request.create!(data) }
+  self.track_request_method = -> (data, _) { Notable::Request.create!(data) }
   self.user_method = -> (env) { env["warden"].user if env["warden"] }
   self.slow_request_threshold = 5
 
