@@ -69,7 +69,7 @@ module Notable
     RequestStore.store.delete(:notable_notes)
   end
 
-  def self.track_job(job, job_id, queue, created_at)
+  def self.track_job(job, job_id, queue, created_at, runtime_threshold)
     exception = nil
     notes = nil
     start_time = Time.now
@@ -86,7 +86,7 @@ module Notable
     runtime = Time.now - start_time
 
     Safely.safely do
-      notes << {note_type: "Slow Job"} if runtime > Notable.slow_job_threshold
+      notes << {note_type: "Slow Job"} if runtime > runtime_threshold
 
       notes.each do |note|
         data = {

@@ -126,10 +126,31 @@ Notable.mask_ips = true
 
 ### Jobs
 
-Set slow threshold
+Set general slow threshold
 
 ```ruby
 Notable.slow_job_threshold = 60 # seconds (default)
+```
+
+
+Set a custom slow threshold (job-specific)
+
+Implement `notable_runtime_threshold` as a method in the job class. It should return the maximum threshold in seconds, for that job class.
+
+If this isn't set, the default threshold set using `Notable.slow_job_threshold`, is used.
+
+In the example below, when CustomJob is run, the threshold used to measure whether it's classified as a Slow request or not is 100 seconds.
+
+```ruby
+class CustomJob < ApplicationJob
+  def perform
+    ...
+  end
+
+  def notable_runtime_threshold
+    100
+  end
+end
 ```
 
 Custom track method
