@@ -6,8 +6,8 @@ class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version
       t.text :job
       t.string :job_id
       t.string :queue
-      t.decimal :runtime
-      t.decimal :queued_time
+      t.float :runtime
+      t.float :queued_time
       t.timestamp :created_at
     end
   end
