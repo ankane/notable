@@ -93,7 +93,7 @@ Notable.enabled = Rails.env.production?
 Set slow threshold
 
 ```ruby
-Notable.slow_request_threshold = 5 # seconds (default)
+Notable.slow_request_threshold = 5.seconds
 ```
 
 Custom user method
@@ -126,29 +126,18 @@ Notable.mask_ips = true
 
 ### Jobs
 
-Set general slow threshold
+Set slow threshold
 
 ```ruby
-Notable.slow_job_threshold = 60 # seconds (default)
+Notable.slow_job_threshold = 60.seconds
 ```
 
-
-Set a custom slow threshold (job-specific)
-
-Implement `notable_runtime_threshold` as a method in the job class. It should return the maximum threshold in seconds, for that job class.
-
-If this isn't set, the default threshold set using `Notable.slow_job_threshold`, is used.
-
-In the example below, when CustomJob is run, the threshold used to measure whether it's classified as a Slow request or not is 100 seconds.
+To set a threshold for a specific job, use:
 
 ```ruby
 class CustomJob < ApplicationJob
-  def perform
-    ...
-  end
-
-  def notable_runtime_threshold
-    100
+  def notable_slow_job_threshold
+    5.minutes
   end
 end
 ```
