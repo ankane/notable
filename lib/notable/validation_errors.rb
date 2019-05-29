@@ -13,5 +13,3 @@ module Notable
     end
   end
 end
-
-ActiveRecord::Base.send(:include, Notable::ValidationErrors)

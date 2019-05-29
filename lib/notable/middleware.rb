@@ -1,6 +1,5 @@
 module Notable
   class Middleware
-
     def initialize(app)
       @app = app
     end
@@ -70,6 +69,5 @@ module Notable
 
       [status, headers, body]
     end
-
   end
 end

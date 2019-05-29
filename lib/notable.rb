@@ -2,7 +2,6 @@ require "notable/version"
 
 require "request_store"
 require "safely/core"
-require "action_dispatch/middleware/debug_exceptions"
 
 # middleware
 require "notable/middleware"
@@ -10,8 +9,6 @@ require "notable/engine" if defined?(Rails)
 
 # requests
 require "notable/unpermitted_parameters"
-require "notable/unverified_request"
-require "notable/validation_errors"
 require "notable/debug_exceptions"
 require "notable/throttle"
 
@@ -116,6 +113,16 @@ module Notable
       addr.mask(48).to_s
     end
   end
+end
+
+ActiveSupport.on_load(:action_controller) do
+  require "notable/unverified_request"
+  include Notable::UnverifiedRequest
+end
+
+ActiveSupport.on_load(:active_record) do
+  require "notable/validation_errors"
+  include Notable::ValidationErrors
 end
 
 ActiveSupport.on_load(:active_job) do

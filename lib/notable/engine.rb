@@ -5,7 +5,7 @@ module Notable
     initializer "notable" do |app|
       if Notable.requests_enabled?
         app.config.middleware.insert_after RequestStore::Middleware, Notable::Middleware
-        ActionDispatch::DebugExceptions.send(:prepend, Notable::DebugExceptions)
+        ActionDispatch::DebugExceptions.prepend Notable::DebugExceptions
       end
     end
   end
