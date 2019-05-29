@@ -99,17 +99,17 @@ Notable.slow_request_threshold = 5.seconds
 Custom user method
 
 ```ruby
-Notable.user_method = -> (env) {
+Notable.user_method = lambda do |env|
   env["warden"].try(:user) || env["action_controller.instance"].try(:current_visit)
-}
+end
 ```
 
 Custom track method
 
 ```ruby
-Notable.track_request_method = -> (data, env) {
+Notable.track_request_method = lambda do |data, env|
   Notable::Request.create!(data)
-}
+end
 ```
 
 Skip tracking CSRF failures
@@ -145,15 +145,10 @@ end
 Custom track method
 
 ```ruby
-Notable.track_job_method = -> (data) {
+Notable.track_job_method = lambda do |data|
   Notable::Job.create!(data)
-}
+end
 ```
-
-## TODO
-
-- ability to disable features
-- add indexes
 
 ## Contributing
 
