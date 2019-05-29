@@ -1,16 +1,14 @@
-require "notable/version"
-
-require "request_store"
+# dependencies
 require "safely/core"
 
-# middleware
-require "notable/middleware"
-require "notable/engine" if defined?(Rails)
-
-# requests
-require "notable/unpermitted_parameters"
+# modules
 require "notable/debug_exceptions"
+require "notable/middleware"
 require "notable/throttle"
+require "notable/unpermitted_parameters"
+require "notable/version"
+
+require "notable/engine" if defined?(Rails)
 
 module Notable
   class << self
@@ -51,7 +49,7 @@ module Notable
   self.slow_job_threshold = 60
 
   def self.track(note_type, note = nil)
-    (RequestStore.store[:notable_notes] ||= []) << {note_type: note_type, note: note}
+    notes << {note_type: note_type, note: note}
   end
 
   def self.track_error(e)
@@ -59,11 +57,11 @@ module Notable
   end
 
   def self.notes
-    RequestStore.store[:notable_notes].to_a
+    Thread.current[:notable_notes] ||= []
   end
 
   def self.clear_notes
-    RequestStore.store.delete(:notable_notes)
+    Thread.current[:notable_notes] = nil
   end
 
   def self.track_job(job, job_id, queue, created_at, slow_job_threshold = nil)

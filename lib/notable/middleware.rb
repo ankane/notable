@@ -68,6 +68,8 @@ module Notable
       end
 
       [status, headers, body]
+    ensure
+      Notable.clear_notes
     end
   end
 end

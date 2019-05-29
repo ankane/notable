@@ -4,7 +4,8 @@ module Notable
 
     initializer "notable" do |app|
       if Notable.requests_enabled?
-        app.config.middleware.insert_after RequestStore::Middleware, Notable::Middleware
+        # insert in same place as request_store
+        app.config.middleware.insert_after ActionDispatch::RequestId, Notable::Middleware
         ActionDispatch::DebugExceptions.prepend Notable::DebugExceptions
       end
     end
