@@ -1,4 +1,4 @@
-## 0.3.0 [unreleased]
+## 0.3.0
 
 - Added support for Rack::Attack 6
 - Added job-specific slow job threshold
