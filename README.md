@@ -36,10 +36,10 @@ And run:
 ```sh
 rails generate notable:requests
 rails generate notable:jobs
-rake db:migrate
+rails db:migrate
 ```
 
-For a web interface, check out [Notable Web](https://github.com/ankane/notable_web).
+To explore the data, check out [Blazer](https://github.com/ankane/blazer).
 
 ## Requests
 

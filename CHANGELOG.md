@@ -1,5 +1,6 @@
 ## 0.3.0 [unreleased]
 
+- Added support for Rack::Attack 6
 - Dropped support for Rails 4.2
 
 ## 0.2.2
