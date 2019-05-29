@@ -1,4 +1,5 @@
 # dependencies
+require "active_support"
 require "safely/core"
 
 # modules
