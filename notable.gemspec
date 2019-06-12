@@ -1,7 +1,4 @@
-
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "notable/version"
+require_relative "lib/notable/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "notable"
