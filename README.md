@@ -50,7 +50,7 @@ A `Notable::Request` is created for:
 - slow requests
 - timeouts
 - validation failures
-- [CSRF failures](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf)
+- [CSRF failures](https://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf)
 - unpermitted parameters
 - blocked and throttled requests
 
