@@ -1,3 +1,7 @@
+## 0.3.1 (2020-05-20)
+
+- Fixed deprecation warning in Ruby 2.7
+
 ## 0.3.0 (2019-05-28)
 
 - Added support for Rack::Attack 6
