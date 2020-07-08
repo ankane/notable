@@ -7,7 +7,7 @@ module Notable
     end
 
     def track_unverified_request
-      if !verified_request?
+      if respond_to?(:verified_request?) && !verified_request?
         expected = form_authenticity_token
         actual = form_authenticity_param || request.headers["X-CSRF-Token"]
         Notable.track "Unverified Request", "#{actual || "nil"} != #{expected}"
