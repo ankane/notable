@@ -58,27 +58,27 @@ For blocked and throttled requests, use [Rack Attack](https://github.com/kicksta
 
 ## Jobs
 
-Wouldn’t it be great to have a record of exact jobs that fail?
-
 A `Notable::Job` is created for:
 
 - errors
 - slow jobs
 - validation failures
 
-## Manual Tracking
+## Custom Notes
+
+Each note has a type and optional note for additional information
 
 ```ruby
 Notable.track(note_type, note)
 ```
 
-Like
+For example
 
 ```ruby
 Notable.track("Auth Event", "Signed In")
 ```
 
-## Customize
+## Options
 
 Disable tracking in certain environments
 
@@ -86,7 +86,7 @@ Disable tracking in certain environments
 Notable.enabled = Rails.env.production?
 ```
 
-### Requests
+### Request Options
 
 Set slow threshold
 
@@ -122,7 +122,7 @@ Anonymize IP addresses
 Notable.mask_ips = true
 ```
 
-### Jobs
+### Job Options
 
 Set slow threshold
 
