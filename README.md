@@ -66,13 +66,13 @@ A `Notable::Job` is created for:
 
 ## Custom Notes
 
-Each note has a type and optional note for additional information
+Create a custom note inside a request or job. Each note has a type and optional note for additional information.
 
 ```ruby
 Notable.track(note_type, note)
 ```
 
-For example
+For example:
 
 ```ruby
 Notable.track("Auth Event", "Signed In")
