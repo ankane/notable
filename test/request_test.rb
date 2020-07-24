@@ -53,7 +53,11 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_equal "throttle note", request.note
   end
 
-  def test_custom
+  def test_manual
+    get manual_path
+    request = Notable::Request.last
+    assert_equal "Test Note", request.note_type
+    assert_equal "Test 123", request.note
   end
 
   def test_mask_ips

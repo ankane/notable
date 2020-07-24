@@ -3,6 +3,11 @@ class HomeController < ActionController::Base
     raise "Test error"
   end
 
+  def manual
+    Notable.track("Test Note", "Test 123")
+    head :ok
+  end
+
   def slow
     sleep(1.1)
     head :ok
