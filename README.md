@@ -165,4 +165,5 @@ To get started with development:
 git clone https://github.com/ankane/notable.git
 cd notable
 bundle install
+bundle exec rake test
 ```

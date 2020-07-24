@@ -20,4 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "minitest", ">= 5"
+  spec.add_development_dependency "combustion"
+  spec.add_development_dependency "rails"
+  spec.add_development_dependency "sqlite3"
 end
