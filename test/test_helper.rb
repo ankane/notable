@@ -15,13 +15,13 @@ Combustion.initialize! :active_record, :action_controller, :active_job do
   config.active_record.logger = logger
   config.active_job.logger = logger
 
-  config.active_job.queue_adapter = :test
+  config.active_job.queue_adapter = :inline
 
   config.action_dispatch.show_exceptions = true
 
   config.filter_parameters += [:password]
 
-  config.slowpoke.timeout = 1
+  config.slowpoke.timeout = 2
 end
 
 Rack::Attack.blocklist("block note") do |request|
