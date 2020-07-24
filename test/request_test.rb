@@ -10,6 +10,8 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_not_found
+    # get "/not_found"
+    # assert_response :not_found
   end
 
   def test_slow
@@ -19,6 +21,9 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_timeout
+    get timeout_url
+    request = Notable::Request.first
+    # TODO fix
   end
 
   def test_validation
@@ -38,6 +43,10 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_throttled_request
+  end
+
+  def test_custom
+
   end
 
   def test_mask_ips

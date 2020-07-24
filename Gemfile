@@ -1,4 +1,5 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in notable.gemspec
 gemspec
+
+gem "rack-timeout", require: "rack/timeout/base"

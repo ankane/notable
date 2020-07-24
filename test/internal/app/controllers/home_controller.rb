@@ -8,6 +8,11 @@ class HomeController < ActionController::Base
     head :ok
   end
 
+  def timeout
+    sleep(2.1)
+    head :ok
+  end
+
   def validation
     User.create
     head :ok
