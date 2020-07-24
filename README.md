@@ -23,6 +23,8 @@ You can track custom notes as well.
 
 :tangerine: Battle-tested at [Instacart](https://www.instacart.com/opensource)
 
+[![Build Status](https://travis-ci.org/ankane/notable.svg?branch=master)](https://travis-ci.org/ankane/notable)
+
 ## Installation
 
 Add this line to your application’s Gemfile:
