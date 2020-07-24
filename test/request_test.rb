@@ -30,6 +30,7 @@ class RequestTest < ActionDispatch::IntegrationTest
     get timeout_url
     request = Notable::Request.first
     # TODO fix
+    # assert_equal "Timeout", request.note_type
   end
 
   def test_validation
