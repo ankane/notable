@@ -80,13 +80,16 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_attributes
-    get manual_path
+    get manual_path, params: {hello: "world"}, headers: {"User-Agent" => "TestBot", "Referer" => "http://www.example.com"}
     request = Notable::Request.last
     assert_equal "users#manual", request.action
     assert_equal 200, request.status
-    assert_equal "http://www.example.com/manual", request.url
+    assert_equal "http://www.example.com/manual?hello=world", request.url
     assert request.request_id
     assert "127.0.0.1", request.ip
+    assert_equal "TestBot", request.user_agent
+    assert_equal "http://www.example.com", request.referrer
+    assert_equal({"hello" => "world"}, request.params)
     assert request.request_time
   end
 
