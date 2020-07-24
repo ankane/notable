@@ -68,6 +68,8 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_throttled
+    skip "Rack::Attack not blocking" if Rails.version < "5.1"
+
     get "/throttled"
     request = Notable::Request.last
     assert_equal "Throttle", request.note_type
