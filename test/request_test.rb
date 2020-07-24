@@ -10,8 +10,10 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_not_found
-    # get "/not_found"
-    # assert_response :not_found
+    get "/not_found"
+    request = Notable::Request.last
+    assert_equal "Not Found", request.note_type
+    assert_equal 404, request.status
   end
 
   def test_slow
