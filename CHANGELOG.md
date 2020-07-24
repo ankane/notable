@@ -1,3 +1,7 @@
+## 0.3.3 (unreleased)
+
+- Added support for `queued_time` for Active Job 6
+
 ## 0.3.2 (2020-07-24)
 
 - Added support for Rails API

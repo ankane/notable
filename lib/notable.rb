@@ -70,6 +70,7 @@ module Notable
     exception = nil
     notes = nil
     start_time = Time.now
+    created_at = Time.parse(created_at) if created_at.is_a?(String)
     queued_time = created_at ? start_time - created_at : nil
     begin
       yield
