@@ -1,4 +1,4 @@
-## 0.3.2 (unreleased)
+## 0.3.2 (2020-07-24)
 
 - Added support for Rails API
 - Fixed blocked requests with Rack::Attack
