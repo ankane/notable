@@ -40,6 +40,12 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_csrf
+    with_forgery_protection do
+      post users_url
+    end
+    request = Notable::Request.first
+    assert_equal "Unverified Request", request.note_type
+    assert_match "nil != ", request.note
   end
 
   def test_unpermitted_parameters
@@ -88,6 +94,16 @@ class RequestTest < ActionDispatch::IntegrationTest
     post users_url
     request = Notable::Request.last
     assert_equal "127.0.0.1", request.ip
+  end
+
+  def with_forgery_protection
+    previous_value = ActionController::Base.allow_forgery_protection
+    begin
+      ActionController::Base.allow_forgery_protection = true
+      yield
+    rescue
+      ActionController::Base.allow_forgery_protection = previous_value
+    end
   end
 
   def with_mask_ips

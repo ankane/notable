@@ -1,4 +1,6 @@
 class UsersController < ActionController::Base
+  protect_from_forgery
+
   def create
     User.create(params.permit(:email))
     head :ok
