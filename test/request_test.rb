@@ -79,6 +79,17 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_equal "Test 123", request.note
   end
 
+  def test_attributes
+    get manual_path
+    request = Notable::Request.last
+    assert_equal "users#manual", request.action
+    assert_equal 200, request.status
+    assert_equal "http://www.example.com/manual", request.url
+    assert request.request_id
+    assert "127.0.0.1", request.ip
+    assert request.request_time
+  end
+
   def test_filtered_parameters
     get manual_path, params: {password: "secret"}
     request = Notable::Request.last
