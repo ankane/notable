@@ -13,8 +13,7 @@ ActiveRecord::Schema.define do
   create_table :notable_requests do |t|
     t.string :note_type
     t.text :note
-    t.integer :user_id
-    t.string :user_type
+    t.references :user, polymorphic: true
     t.text :action
     t.integer :status
     t.text :url
@@ -26,8 +25,6 @@ ActiveRecord::Schema.define do
     t.float :request_time
     t.timestamp :created_at
   end
-
-  add_index :notable_requests, [:user_id, :user_type]
 
   create_table :users do |t|
     t.string :email
