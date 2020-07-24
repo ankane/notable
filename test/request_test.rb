@@ -27,7 +27,7 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_validation
-    post validation_url
+    post users_url
     request = Notable::Request.last
     assert_equal "Validation Errors", request.note_type
     assert_equal "User: Email can't be blank", request.note
@@ -37,6 +37,10 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_unpermitted_parameters
+    post users_url, params: {email: "test@example.org", bad: "hello", other: "world"}
+    request = Notable::Request.last
+    assert_equal "Unpermitted Parameters", request.note_type
+    assert_equal "bad, other", request.note
   end
 
   def test_blocked
@@ -62,14 +66,14 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_mask_ips
     with_mask_ips do
-      post validation_url
+      post users_url
     end
     request = Notable::Request.last
     assert_equal "127.0.0.0", request.ip
   end
 
   def test_without_mask_ips
-    post validation_url
+    post users_url
     request = Notable::Request.last
     assert_equal "127.0.0.1", request.ip
   end

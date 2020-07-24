@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get "error" => "home#error"
-  get "manual" => "home#manual"
-  get "slow" => "home#slow"
-  get "timeout" => "home#timeout"
-  post "validation" => "home#validation"
+  get "error" => "users#error"
+  get "manual" => "users#manual"
+  get "slow" => "users#slow"
+  get "timeout" => "users#timeout"
+  resources :users, only: [:create]
 end

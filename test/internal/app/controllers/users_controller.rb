@@ -1,4 +1,9 @@
-class HomeController < ActionController::Base
+class UsersController < ActionController::Base
+  def create
+    User.create(params.permit(:email))
+    head :ok
+  end
+
   def error
     raise "Test error"
   end
@@ -15,11 +20,6 @@ class HomeController < ActionController::Base
 
   def timeout
     sleep(2.1)
-    head :ok
-  end
-
-  def validation
-    User.create
     head :ok
   end
 end
