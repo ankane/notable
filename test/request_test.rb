@@ -29,9 +29,10 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_timeout
     get timeout_url
-    request = Notable::Request.first
-    # TODO fix
-    # assert_equal "Timeout", request.note_type
+    request = Notable::Request.last
+    # TODO should be Timeout
+    assert_equal "Service Unavailable", request.note_type
+    assert_equal 503, request.status
   end
 
   def test_validation

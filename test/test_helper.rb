@@ -11,18 +11,17 @@ Combustion.initialize! :active_record, :action_controller, :active_job do
     config.active_record.sqlite3.represent_boolean_as_integer = true
   end
 
-  config.active_job.queue_adapter = :test
-
   config.action_controller.logger = logger
   config.active_record.logger = logger
   config.active_job.logger = logger
 
-  # need to manually add in test environment
-  config.middleware.insert_before Rack::Runtime, Rack::Timeout, service_timeout: 2
+  config.active_job.queue_adapter = :test
 
   config.action_dispatch.show_exceptions = true
 
   config.filter_parameters += [:password]
+
+  config.slowpoke.timeout = 1
 end
 
 Rack::Attack.blocklist("block note") do |request|
