@@ -77,14 +77,14 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_manual
-    get manual_path
+    get manual_url
     request = Notable::Request.last
     assert_equal "Test Note", request.note_type
     assert_equal "Test 123", request.note
   end
 
   def test_attributes
-    get manual_path, params: {hello: "world"}, headers: {"User-Agent" => "TestBot", "Referer" => "http://www.example.com"}
+    get manual_url, params: {hello: "world"}, headers: {"User-Agent" => "TestBot", "Referer" => "http://www.example.com"}
     request = Notable::Request.last
     assert_equal "users#manual", request.action
     assert_equal 200, request.status
@@ -99,7 +99,7 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_filtered_parameters
-    get manual_path, params: {password: "secret"}
+    get manual_url, params: {password: "secret"}
     request = Notable::Request.last
     assert_equal({"password"=>"[FILTERED]"}, request.params)
   end
@@ -116,6 +116,11 @@ class RequestTest < ActionDispatch::IntegrationTest
     post users_url
     request = Notable::Request.last
     assert_equal "127.0.0.1", request.ip
+  end
+
+  def test_api
+    get api_url
+    assert_response :success
   end
 
   def with_forgery_protection
