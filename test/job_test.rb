@@ -16,7 +16,6 @@ class JobTest < ActiveSupport::TestCase
     SlowJob.perform_later
     job = Notable::Job.last
     assert_equal "Slow Job", job.note_type
-    assert_equal "SlowJob", job.job
   end
 
   def test_validation
@@ -31,5 +30,14 @@ class JobTest < ActiveSupport::TestCase
     job = Notable::Job.last
     assert_equal "Test Note", job.note_type
     assert_equal "Test 123", job.note
+  end
+
+  def test_attributes
+    ManualJob.perform_later
+    job = Notable::Job.last
+    assert_equal "ManualJob", job.job
+    assert job.job_id
+    assert_equal "default", job.queue
+    assert job.runtime
   end
 end
