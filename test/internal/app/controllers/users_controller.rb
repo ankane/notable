@@ -24,4 +24,8 @@ class UsersController < ActionController::Base
     sleep(2.1)
     head :ok
   end
+
+  def current_user
+    @current_user ||= User.create!(email: "current-user@example.com")
+  end
 end

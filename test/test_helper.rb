@@ -36,3 +36,7 @@ Rack::Timeout::Logger.logger = logger
 
 Notable.slow_job_threshold = 1
 Notable.slow_request_threshold = 1
+
+Notable.user_method = lambda do |env|
+  env["action_controller.instance"].try(:current_user)
+end

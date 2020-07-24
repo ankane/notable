@@ -52,7 +52,7 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_unpermitted_parameters
-    post users_url, params: {email: "test@example.org", bad: "hello", other: "world"}
+    post users_url, params: {email: "test@example.com", bad: "hello", other: "world"}
     request = Notable::Request.last
     assert_equal "Unpermitted Parameters", request.note_type
     assert_equal "bad, other", request.note
@@ -85,6 +85,7 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_equal "users#manual", request.action
     assert_equal 200, request.status
     assert_equal "http://www.example.com/manual?hello=world", request.url
+    assert_equal "current-user@example.com", request.user.email
     assert request.request_id
     assert "127.0.0.1", request.ip
     assert_equal "TestBot", request.user_agent
