@@ -45,4 +45,10 @@ class JobTest < ActiveSupport::TestCase
       assert_nil job.queued_time
     end
   end
+
+  def test_queued_time_perform_now
+    ManualJob.perform_now
+    job = Notable::Job.last
+    assert_nil job.queued_time
+  end
 end
