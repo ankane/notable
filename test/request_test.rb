@@ -8,9 +8,8 @@ class RequestTest < ActionDispatch::IntegrationTest
   def test_error
     get error_url
     request = Notable::Request.last
-    assert_equal "Internal Server Error", request.note_type
-    # TODO fix
-    # assert_equal "RuntimeError: Test error", request.note
+    assert_equal "Error", request.note_type
+    assert_equal "RuntimeError: Test error", request.note
     assert_equal 500, request.status
   end
 
@@ -30,8 +29,7 @@ class RequestTest < ActionDispatch::IntegrationTest
   def test_timeout
     get timeout_url
     request = Notable::Request.last
-    # TODO should be Timeout
-    assert_equal "Service Unavailable", request.note_type
+    assert_equal "Timeout", request.note_type
     assert_equal 503, request.status
   end
 
