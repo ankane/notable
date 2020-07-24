@@ -66,6 +66,12 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_equal "Test 123", request.note
   end
 
+  def test_filtered_parameters
+    get manual_path, params: {password: "secret"}
+    request = Notable::Request.last
+    assert_equal({"password"=>"[FILTERED]"}, request.params)
+  end
+
   def test_mask_ips
     with_mask_ips do
       post users_url

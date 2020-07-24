@@ -21,6 +21,8 @@ Combustion.initialize! :active_record, :action_controller, :active_job do
   config.middleware.insert_before Rack::Runtime, Rack::Timeout, service_timeout: 2
 
   config.action_dispatch.show_exceptions = true
+
+  config.filter_parameters += [:password]
 end
 
 Rack::Attack.blocklist("block note") do |request|
