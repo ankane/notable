@@ -39,14 +39,21 @@ class RequestTest < ActionDispatch::IntegrationTest
   def test_unpermitted_parameters
   end
 
-  def test_blocked_request
+  def test_blocked
+    get "/blocked"
+    request = Notable::Request.last
+    assert_equal "Throttle", request.note_type
+    assert_equal "block note", request.note
   end
 
-  def test_throttled_request
+  def test_throttled
+    get "/throttled"
+    request = Notable::Request.last
+    assert_equal "Throttle", request.note_type
+    assert_equal "throttle note", request.note
   end
 
   def test_custom
-
   end
 
   def test_mask_ips

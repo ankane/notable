@@ -23,6 +23,14 @@ Combustion.initialize! :active_record, :action_controller, :active_job do
   config.action_dispatch.show_exceptions = true
 end
 
+Rack::Attack.blocklist("block note") do |request|
+  request.path.start_with?("/blocked")
+end
+
+Rack::Attack.throttle("throttle note", limit: 0, period: 1) do |request|
+  request.path.start_with?("/throttled")
+end
+
 Rack::Timeout::Logger.logger = logger
 
 Notable.slow_request_threshold = 1
