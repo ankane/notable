@@ -22,6 +22,10 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_validation
+    post validation_url
+    request = Notable::Request.last
+    assert_equal "Validation Errors", request.note_type
+    assert_equal "User: Email can't be blank", request.note
   end
 
   def test_csrf
@@ -37,6 +41,26 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_mask_ips
+    with_mask_ips do
+      post validation_url
+    end
+    request = Notable::Request.last
+    assert_equal "127.0.0.0", request.ip
+  end
 
+  def test_without_mask_ips
+    post validation_url
+    request = Notable::Request.last
+    assert_equal "127.0.0.1", request.ip
+  end
+
+  def with_mask_ips
+    previous_value = Notable.mask_ips
+    begin
+      Notable.mask_ips = true
+      yield
+    ensure
+      Notable.mask_ips = previous_value
+    end
   end
 end

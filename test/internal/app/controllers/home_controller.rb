@@ -7,4 +7,9 @@ class HomeController < ActionController::Base
     sleep(1.1)
     head :ok
   end
+
+  def validation
+    User.create
+    head :ok
+  end
 end
