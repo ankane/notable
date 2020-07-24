@@ -9,7 +9,8 @@ class RequestTest < ActionDispatch::IntegrationTest
     get error_url
     request = Notable::Request.last
     assert_equal "Internal Server Error", request.note_type
-    # TODO test note
+    # TODO fix
+    # assert_equal "RuntimeError: Test error", request.note
     assert_equal 500, request.status
   end
 
