@@ -18,6 +18,12 @@ class JobTest < ActiveSupport::TestCase
     assert_equal "Slow Job", job.note_type
   end
 
+  def test_slow_specific_job
+    SlowThresholdJob.perform_later
+    job = Notable::Job.last
+    assert_equal "Slow Job", job.note_type
+  end
+
   def test_validation
     ValidationJob.perform_later
     job = Notable::Job.last
