@@ -22,12 +22,12 @@ class UsersController < ActionController::Base
   end
 
   def slow
-    sleep(1.1)
+    sleep(0.3)
     head :ok
   end
 
   def timeout
-    sleep(2.1)
+    sleep(1.1)
     head :ok
   end
 

@@ -1,5 +1,5 @@
 class SlowJob < ActiveJob::Base
   def perform
-    sleep(1.1)
+    sleep(0.3)
   end
 end

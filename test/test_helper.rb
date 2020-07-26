@@ -22,7 +22,7 @@ Combustion.initialize! :active_record, :action_controller, :active_job do
 
   config.filter_parameters += [:password]
 
-  config.slowpoke.timeout = 2
+  config.slowpoke.timeout = 1
 end
 
 Rack::Attack.blocklist("block note") do |request|
@@ -35,8 +35,8 @@ end
 
 Rack::Timeout::Logger.logger = logger
 
-Notable.slow_job_threshold = 1
-Notable.slow_request_threshold = 1
+Notable.slow_job_threshold = 0.2
+Notable.slow_request_threshold = 0.2
 
 Notable.user_method = lambda do |env|
   env["action_controller.instance"].try(:current_user)
