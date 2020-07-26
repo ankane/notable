@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get "slow" => "users#slow"
   get "timeout" => "users#timeout"
   get "api" => "api#works"
-  resources :users, only: [:create]
+  resources :users, only: [:create, :update]
 end

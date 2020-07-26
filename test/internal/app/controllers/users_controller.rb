@@ -1,8 +1,14 @@
 class UsersController < ActionController::Base
   protect_from_forgery
 
+  skip_before_action :track_unverified_request, only: [:update]
+
   def create
     User.create(params.permit(:email))
+    head :ok
+  end
+
+  def update
     head :ok
   end
 

@@ -49,6 +49,13 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_match "nil != ", request.note
   end
 
+  def test_csrf_skip_before_action
+    with_forgery_protection do
+      patch user_url(1)
+    end
+    assert_equal 0, Notable::Request.count
+  end
+
   def test_unpermitted_parameters
     post users_url, params: {email: "test@example.com", bad: "hello", other: "world"}
     request = Notable::Request.last
