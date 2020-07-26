@@ -57,4 +57,18 @@ class JobTest < ActiveSupport::TestCase
     job = Notable::Job.last
     assert_nil job.queued_time
   end
+
+  def test_track_job_method
+    previous_value = Notable.track_job_method
+    begin
+      data = nil
+      Notable.track_job_method = lambda do |d|
+        data = d
+      end
+      ManualJob.perform_later
+      assert_equal "Test Note", data[:note_type]
+    ensure
+      Notable.track_job_method = previous_value
+    end
+  end
 end

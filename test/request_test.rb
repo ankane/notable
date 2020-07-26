@@ -128,6 +128,23 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  def test_track_request_method
+    previous_value = Notable.track_request_method
+    begin
+      data = nil
+      env = nil
+      Notable.track_request_method = lambda do |d, e|
+        data = d
+        env = e
+      end
+      get manual_url
+      assert_equal "Test Note", data[:note_type]
+      assert env["rack.version"]
+    ensure
+      Notable.track_request_method = previous_value
+    end
+  end
+
   def with_forgery_protection
     previous_value = ActionController::Base.allow_forgery_protection
     begin
