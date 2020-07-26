@@ -39,24 +39,18 @@ rails db:migrate
 
 To explore the data, check out [Blazer](https://github.com/ankane/blazer).
 
-## Requests
+## How It Works
 
 A `Notable::Request` is created for:
 
 - errors
 - 404s
 - slow requests
-- timeouts
+- timeouts from [Slowpoke](https://github.com/ankane/slowpoke)
 - validation failures
 - [CSRF failures](https://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf)
 - unpermitted parameters
-- blocked and throttled requests
-
-For timeouts, use [Slowpoke](https://github.com/ankane/slowpoke).
-
-For blocked and throttled requests, use [Rack Attack](https://github.com/kickstarter/rack-attack).
-
-## Jobs
+- blocked and throttled requests from [Rack Attack](https://github.com/kickstarter/rack-attack)
 
 A `Notable::Job` is created for:
 
@@ -64,15 +58,13 @@ A `Notable::Job` is created for:
 - slow jobs
 - validation failures
 
-## Custom Notes
-
-Create a custom note inside a request or job
+Create a custom note inside a request or job with:
 
 ```ruby
-Notable.track("Note Type", "Additional Info")
+Notable.track("Note Type", "Optional extra info")
 ```
 
-## Options
+## Customization
 
 Disable tracking in certain environments
 
@@ -80,7 +72,7 @@ Disable tracking in certain environments
 Notable.enabled = Rails.env.production?
 ```
 
-### Request Options
+### Requests
 
 Set slow threshold
 
@@ -116,7 +108,7 @@ Anonymize IP addresses
 Notable.mask_ips = true
 ```
 
-### Job Options
+### Jobs
 
 Set slow threshold
 
