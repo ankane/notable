@@ -1,4 +1,4 @@
-## 0.3.3 (unreleased)
+## 0.3.3 (2020-07-26)
 
 - Added support for `queued_time` for Active Job 6
 
