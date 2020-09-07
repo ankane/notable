@@ -7,7 +7,7 @@ ActiveRecord::Schema.define do
     t.string :queue
     t.float :runtime
     t.float :queued_time
-    t.timestamp :created_at
+    t.datetime :created_at
   end
 
   create_table :notable_requests do |t|
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define do
     t.text :referrer
     t.text :params
     t.float :request_time
-    t.timestamp :created_at
+    t.datetime :created_at
   end
 
   create_table :users do |t|

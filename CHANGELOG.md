@@ -1,3 +1,7 @@
+## 0.3.4 (unreleased)
+
+- Use `datetime` type in migration
+
 ## 0.3.3 (2020-07-26)
 
 - Added support for `queued_time` for Active Job 6
