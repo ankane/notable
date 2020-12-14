@@ -150,7 +150,7 @@ class RequestTest < ActionDispatch::IntegrationTest
     begin
       ActionController::Base.allow_forgery_protection = true
       yield
-    rescue
+    ensure
       ActionController::Base.allow_forgery_protection = previous_value
     end
   end
