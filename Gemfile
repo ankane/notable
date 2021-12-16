@@ -5,7 +5,7 @@ gemspec
 gem "rake"
 gem "minitest", ">= 5"
 gem "combustion"
-gem "rails"
+gem "rails", "~> 7.0.0"
 gem "sqlite3"
 gem "rack-attack"
 gem "slowpoke"
