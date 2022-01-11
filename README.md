@@ -26,7 +26,7 @@ You can track custom notes as well.
 Add this line to your application’s Gemfile:
 
 ```ruby
-gem 'notable'
+gem "notable"
 ```
 
 And run:
@@ -133,6 +133,10 @@ Notable.track_job_method = lambda do |data|
   Notable::Job.create!(data)
 end
 ```
+
+## History
+
+View the [changelog](https://github.com/ankane/notable/blob/master/CHANGELOG.md)
 
 ## Contributing
 
