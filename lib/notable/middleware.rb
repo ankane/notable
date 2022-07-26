@@ -22,11 +22,11 @@ module Notable
               "Error"
             end
           Notable.track message, "#{e.class.name}: #{e.message}"
-        elsif (!status or status.to_i >= 400) and !Notable.notes.any?
+        elsif (!status || status.to_i >= 400) && !Notable.notes.any?
           Notable.track Rack::Utils::HTTP_STATUS_CODES[status.to_i]
         end
 
-        if request_time > Notable.slow_request_threshold and status.to_i != 503
+        if request_time > Notable.slow_request_threshold && status.to_i != 503
           Notable.track "Slow Request"
         end
 

@@ -69,9 +69,8 @@ module Notable
     slow_job_threshold ||= Notable.slow_job_threshold
     exception = nil
     notes = nil
+    started_at = Time.now # wall time
     start_time = monotonic_time
-    created_at = Time.parse(created_at) if created_at.is_a?(String)
-    queued_time = created_at ? [Time.now - created_at, 0].max : nil
     begin
       yield
     rescue Exception => e
@@ -85,6 +84,11 @@ module Notable
 
     Safely.safely do
       notes << {note_type: "Slow Job"} if runtime > slow_job_threshold
+
+      if notes.any?
+        created_at = Time.parse(created_at) if created_at.is_a?(String)
+        queued_time = created_at ? [started_at - created_at, 0].max : nil
+      end
 
       notes.each do |note|
         data = {
