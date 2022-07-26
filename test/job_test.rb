@@ -44,7 +44,7 @@ class JobTest < ActiveSupport::TestCase
     assert_equal "ManualJob", job.job
     assert job.job_id
     assert_equal "default", job.queue
-    assert job.runtime
+    assert_operator job.runtime, :>, 0
     if ActiveJob::VERSION::MAJOR >= 6
       assert_operator job.queued_time, :>, 0
     else

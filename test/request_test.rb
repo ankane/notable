@@ -100,7 +100,7 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_equal "TestBot", request.user_agent
     assert_equal "http://www.example.com", request.referrer
     assert_equal({"hello" => "world"}, request.params)
-    assert request.request_time
+    assert_operator request.request_time, :>, 0
   end
 
   def test_filtered_parameters
