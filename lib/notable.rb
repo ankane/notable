@@ -71,7 +71,7 @@ module Notable
     notes = nil
     start_time = monotonic_time
     created_at = Time.parse(created_at) if created_at.is_a?(String)
-    queued_time = created_at ? [Time.now - created_at, 0].min : nil
+    queued_time = created_at ? [Time.now - created_at, 0].max : nil
     begin
       yield
     rescue Exception => e
