@@ -69,9 +69,9 @@ module Notable
     slow_job_threshold ||= Notable.slow_job_threshold
     exception = nil
     notes = nil
-    start_time = Time.now
+    start_time = monotonic_time
     created_at = Time.parse(created_at) if created_at.is_a?(String)
-    queued_time = created_at ? start_time - created_at : nil
+    queued_time = created_at ? [Time.now - created_at, 0].min : nil
     begin
       yield
     rescue Exception => e
@@ -81,7 +81,7 @@ module Notable
       notes = Notable.notes
       Notable.clear_notes
     end
-    runtime = Time.now - start_time
+    runtime = monotonic_time - start_time
 
     Safely.safely do
       notes << {note_type: "Slow Job"} if runtime > slow_job_threshold
@@ -113,6 +113,10 @@ module Notable
       # set last 80 bits to zeros
       addr.mask(48).to_s
     end
+  end
+
+  def self.monotonic_time
+    Process.clock_gettime(Process::CLOCK_MONOTONIC)
   end
 end
 

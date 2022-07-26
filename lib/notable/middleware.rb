@@ -5,9 +5,9 @@ module Notable
     end
 
     def call(env)
-      start_time = Time.now
+      start_time = Notable.monotonic_time
       status, headers, body = @app.call(env)
-      request_time = Time.now - start_time
+      request_time = Notable.monotonic_time - start_time
 
       Safely.safely do
         if env["action_dispatch.exception"]
