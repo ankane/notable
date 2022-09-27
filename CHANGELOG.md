@@ -1,6 +1,6 @@
-## 0.4.1 (unreleased)
+## 0.4.1 (2022-09-26)
 
-- Use monotonic time
+- Switched to monotonic time
 
 ## 0.4.0 (2022-01-10)
 
