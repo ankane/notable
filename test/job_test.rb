@@ -45,11 +45,7 @@ class JobTest < ActiveSupport::TestCase
     assert job.job_id
     assert_equal "default", job.queue
     assert_operator job.runtime, :>, 0
-    if ActiveJob::VERSION::MAJOR >= 6
-      assert_operator job.queued_time, :>, 0
-    else
-      assert_nil job.queued_time
-    end
+    assert_operator job.queued_time, :>, 0
   end
 
   def test_queued_time_perform_now
