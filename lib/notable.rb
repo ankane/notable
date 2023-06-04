@@ -3,13 +3,13 @@ require "active_support"
 require "safely/core"
 
 # modules
-require "notable/debug_exceptions"
-require "notable/middleware"
-require "notable/throttle"
-require "notable/unpermitted_parameters"
-require "notable/version"
+require_relative "notable/debug_exceptions"
+require_relative "notable/middleware"
+require_relative "notable/throttle"
+require_relative "notable/unpermitted_parameters"
+require_relative "notable/version"
 
-require "notable/engine" if defined?(Rails)
+require_relative "notable/engine" if defined?(Rails)
 
 module Notable
   class << self
