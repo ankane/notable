@@ -16,6 +16,7 @@ Combustion.initialize! :active_record, :action_controller, :active_job do
 
   config.action_dispatch.show_exceptions = true
   config.consider_all_requests_local = false
+  config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess]
 
   config.filter_parameters += [:password]
 
