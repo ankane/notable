@@ -3,6 +3,6 @@ module Notable
     self.table_name = "notable_requests"
 
     belongs_to :user, polymorphic: true, optional: true
-    serialize :params, JSON
+    serialize :params, coder: JSON
   end
 end
