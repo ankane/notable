@@ -37,7 +37,11 @@ class RequestTest < ActionDispatch::IntegrationTest
     post users_url
     request = Notable::Request.last
     assert_equal "Validation Errors", request.note_type
-    assert_equal "User: Email can't be blank", request.note
+    if Rails.version.to_f >= 7.1
+      assert_equal "User: Email can’t be blank", request.note
+    else
+      assert_equal "User: Email can't be blank", request.note
+    end
   end
 
   def test_csrf

@@ -28,7 +28,11 @@ class JobTest < ActiveSupport::TestCase
     ValidationJob.perform_later
     job = Notable::Job.last
     assert_equal "Validation Errors", job.note_type
-    assert_equal "User: Email can't be blank", job.note
+    if Rails.version.to_f >= 7.1
+      assert_equal "User: Email can’t be blank", job.note
+    else
+      assert_equal "User: Email can't be blank", job.note
+    end
   end
 
   def test_manual
