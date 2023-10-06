@@ -12,6 +12,6 @@
 *.o
 *.a
 mkmf.log
-*.sqlite
+*.sqlite*
 *.log
 *.lock
