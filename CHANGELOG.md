@@ -1,4 +1,4 @@
-## 0.5.2 (unreleased)
+## 0.5.2 (2023-12-26)
 
 - Fixed deprecation warning with Rack 3
 
