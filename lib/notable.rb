@@ -3,6 +3,7 @@ require "active_support"
 require "safely/core"
 
 # modules
+require_relative "notable/debug_exceptions"
 require_relative "notable/middleware"
 require_relative "notable/throttle"
 require_relative "notable/unpermitted_parameters"
