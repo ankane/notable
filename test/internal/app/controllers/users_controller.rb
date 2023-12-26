@@ -1,4 +1,6 @@
 class UsersController < ActionController::Base
+  protect_from_forgery with: :null_session
+
   skip_before_action :track_unverified_request, only: [:update]
 
   def create
