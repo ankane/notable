@@ -1,3 +1,7 @@
+## 0.5.2 (unreleased)
+
+- Fixed deprecation warning with Rack 3
+
 ## 0.5.1 (2023-09-05)
 
 - Fixed deprecation warning with Rails 7.1
