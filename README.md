@@ -19,7 +19,7 @@ You can track custom notes as well.
 
 :tangerine: Battle-tested at [Instacart](https://www.instacart.com/opensource)
 
-[![Build Status](https://github.com/ankane/notable/workflows/build/badge.svg?branch=master)](https://github.com/ankane/notable/actions)
+[![Build Status](https://github.com/ankane/notable/actions/workflows/build.yml/badge.svg)](https://github.com/ankane/notable/actions)
 
 ## Installation
 
