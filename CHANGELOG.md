@@ -56,4 +56,16 @@
 
 ## 0.1.0 (2016-02-20)
 
-- Launched
+- Switched to `Module#prepend`
+
+## 0.0.3 (2015-03-15)
+
+- Added `track_error` method
+
+## 0.0.2 (2014-12-22)
+
+- Fixed method name
+
+## 0.0.1 (2014-12-22)
+
+- First release
