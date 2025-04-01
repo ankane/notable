@@ -16,7 +16,7 @@ Combustion.initialize! :active_record, :action_controller, :active_job do
 
   config.active_job.queue_adapter = :inline
 
-  config.action_dispatch.show_exceptions = Rails.version.to_f >= 7.1 ? :all : true
+  config.action_dispatch.show_exceptions = :all
   config.consider_all_requests_local = false
 
   config.filter_parameters += [:password]

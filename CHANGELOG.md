@@ -1,3 +1,7 @@
+## 0.6.0 (unreleased)
+
+- Dropped support for Ruby < 3.2 and Rails < 7.1
+
 ## 0.5.2 (2023-12-26)
 
 - Fixed deprecation warning with Rack 3
