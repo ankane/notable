@@ -40,3 +40,8 @@ Notable.slow_request_threshold = 0.2
 Notable.user_method = lambda do |env|
   env["action_controller.instance"].try(:current_user)
 end
+
+# https://github.com/rails/rails/issues/54595
+if RUBY_ENGINE == "jruby" && Rails::VERSION::MAJOR >= 8
+  Rails.application.reload_routes_unless_loaded
+end
