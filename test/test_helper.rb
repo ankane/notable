@@ -25,11 +25,11 @@ Combustion.initialize! :active_record, :action_controller, :active_job do
 end
 
 Rack::Attack.blocklist("block note") do |request|
-  request.path.start_with?("/blocked")
+  request.path.start_with?("/rack/blocked")
 end
 
 Rack::Attack.throttle("throttle note", limit: 0, period: 1) do |request|
-  request.path.start_with?("/throttled")
+  request.path.start_with?("/rack/throttled")
 end
 
 Rack::Timeout::Logger.logger = logger

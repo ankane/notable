@@ -63,15 +63,25 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_equal "bad, other", request.note
   end
 
-  def test_blocked
-    get "/blocked"
+  def test_throttled
+    skip if Rails::VERSION::STRING.to_f < 7.2
+
+    get "/throttled"
+    request = Notable::Request.last
+    # TODO make consistent with rack-attack
+    assert_equal "Too Many Requests", request.note_type
+    assert_nil request.note
+  end
+
+  def test_rack_blocked
+    get "/rack/blocked"
     request = Notable::Request.last
     assert_equal "Throttle", request.note_type
     assert_equal "block note", request.note
   end
 
-  def test_throttled
-    get "/throttled"
+  def test_rack_throttled
+    get "/rack/throttled"
     request = Notable::Request.last
     assert_equal "Throttle", request.note_type
     assert_equal "throttle note", request.note
