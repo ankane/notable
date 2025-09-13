@@ -10,8 +10,7 @@ module Notable
       request_time = Notable.monotonic_time - start_time
 
       Safely.safely do
-        if env["action_dispatch.exception"]
-          e = env["action_dispatch.exception"]
+        if (e = env["action_dispatch.exception"]) && (!defined?(ActionController::TooManyRequests) || !e.is_a?(ActionController::TooManyRequests))
           message =
             case status.to_i
             when 404
