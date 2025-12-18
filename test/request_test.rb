@@ -164,8 +164,12 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def with_mask_ips
-    Notable.stub(:mask_ips, true) do
+    previous_value = Notable.mask_ips
+    begin
+      Notable.mask_ips = true
       yield
+    ensure
+      Notable.mask_ips = previous_value
     end
   end
 end
