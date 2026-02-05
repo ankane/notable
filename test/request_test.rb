@@ -135,6 +135,15 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_equal "\x80", request.referrer
   end
 
+  def test_scrub_invalid_utf8
+    with_scrub_invalid_utf8 do
+      get manual_url, headers: {"User-Agent" => "\x80", "Referer" => "\x80"}
+      request = Notable::Request.last
+      assert_equal "�", request.user_agent
+      assert_equal "�", request.referrer
+    end
+  end
+
   def test_mask_ips
     with_mask_ips do
       post users_url
@@ -188,6 +197,16 @@ class RequestTest < ActionDispatch::IntegrationTest
       yield
     ensure
       Notable.mask_ips = previous_value
+    end
+  end
+
+  def with_scrub_invalid_utf8
+    previous_value = Notable.scrub_invalid_utf8
+    begin
+      Notable.scrub_invalid_utf8 = true
+      yield
+    ensure
+      Notable.scrub_invalid_utf8 = previous_value
     end
   end
 end

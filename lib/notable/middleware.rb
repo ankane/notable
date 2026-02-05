@@ -41,6 +41,14 @@ module Notable
 
           user = Notable.user_method.call(env)
 
+          user_agent = request.user_agent
+          referrer = request.referer
+
+          if Notable.scrub_invalid_utf8
+            user_agent = user_agent.scrub
+            referrer = referrer.scrub
+          end
+
           notes.each do |note|
             ip = request.remote_ip
             if ip && Notable.mask_ips
@@ -56,9 +64,9 @@ module Notable
               params: params,
               request_id: request.uuid,
               ip: ip,
-              user_agent: request.user_agent,
+              user_agent: user_agent,
               url: url,
-              referrer: request.referer,
+              referrer: referrer,
               request_time: request_time
             }
             Notable.track_request_method.call(data, env)

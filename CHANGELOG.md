@@ -1,5 +1,6 @@
 ## 0.6.1 (unreleased)
 
+- Added `scrub_invalid_utf8` option
 - Improved handling of invalid parameters
 
 ## 0.6.0 (2025-04-03)

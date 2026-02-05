@@ -106,6 +106,12 @@ Anonymize IP addresses
 Notable.mask_ips = true
 ```
 
+Scrub invalid UTF-8 from data [unreleased]
+
+```ruby
+Notable.scrub_invalid_utf8 = true
+```
+
 ### Jobs
 
 Set slow threshold
