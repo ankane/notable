@@ -36,8 +36,8 @@ module Notable
           url = request.original_url
 
           controller = env["action_controller.instance"]
-          action = controller && "#{controller.params["controller"]}##{controller.params["action"]}"
-          params = controller && controller.request.filtered_parameters.except("controller", "action")
+          action = controller && "#{controller.controller_path}##{controller.action_name}"
+          params = controller && (controller.request.filtered_parameters.except("controller", "action") rescue nil)
 
           user = Notable.user_method.call(env)
 

@@ -117,6 +117,14 @@ class RequestTest < ActionDispatch::IntegrationTest
     assert_equal({"password"=>"[FILTERED]"}, request.params)
   end
 
+  def test_invalid_utf8_params
+    get manual_url, params: {"hello" => "\x80"}
+    request = Notable::Request.last
+    assert_equal "Error", request.note_type
+    assert_equal "ActionController::BadRequest: Invalid query parameters: Invalid encoding for parameter: �", request.note
+    assert_nil request.params
+  end
+
   def test_mask_ips
     with_mask_ips do
       post users_url
