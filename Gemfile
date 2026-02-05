@@ -10,3 +10,4 @@ gem "sqlite3", platform: :ruby
 gem "sqlite3-ffi", platform: :jruby
 gem "rack-attack"
 gem "slowpoke"
+gem "pg", platform: :ruby
