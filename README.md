@@ -106,7 +106,7 @@ Anonymize IP addresses
 Notable.mask_ips = true
 ```
 
-Scrub invalid UTF-8 from data [unreleased]
+Scrub invalid UTF-8 from data
 
 ```ruby
 Notable.scrub_invalid_utf8 = true
