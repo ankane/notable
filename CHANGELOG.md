@@ -1,5 +1,6 @@
 ## 0.7.0 (unreleased)
 
+- Enabled `scrub_invalid_utf8` by default
 - Dropped support for Ruby < 3.3 and Rails < 7.2
 
 ## 0.6.1 (2026-02-07)

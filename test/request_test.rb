@@ -124,21 +124,21 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_invalid_utf8_headers
+    get manual_url, headers: {"User-Agent" => "\x80", "Referer" => "\x80"}
+    request = Notable::Request.last
+    assert_equal "�", request.user_agent
+    assert_equal "�", request.referrer
+  end
+
+  def test_scrub_invalid_utf8_false
     # TODO fix
     skip if ENV["ADAPTER"] == "postgresql"
 
-    get manual_url, headers: {"User-Agent" => "\x80", "Referer" => "\x80"}
-    request = Notable::Request.last
-    assert_equal "\x80", request.user_agent
-    assert_equal "\x80", request.referrer
-  end
-
-  def test_scrub_invalid_utf8
-    with_scrub_invalid_utf8 do
+    without_scrub_invalid_utf8 do
       get manual_url, headers: {"User-Agent" => "\x80", "Referer" => "\x80"}
       request = Notable::Request.last
-      assert_equal "�", request.user_agent
-      assert_equal "�", request.referrer
+      assert_equal "\x80", request.user_agent
+      assert_equal "\x80", request.referrer
     end
   end
 
@@ -198,10 +198,10 @@ class RequestTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def with_scrub_invalid_utf8
+  def without_scrub_invalid_utf8
     previous_value = Notable.scrub_invalid_utf8
     begin
-      Notable.scrub_invalid_utf8 = true
+      Notable.scrub_invalid_utf8 = false
       yield
     ensure
       Notable.scrub_invalid_utf8 = previous_value

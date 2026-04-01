@@ -45,8 +45,8 @@ module Notable
           referrer = request.referer
 
           if Notable.scrub_invalid_utf8
-            user_agent = user_agent.scrub
-            referrer = referrer.scrub
+            user_agent = user_agent&.scrub
+            referrer = referrer&.scrub
           end
 
           notes.each do |note|

@@ -31,8 +31,7 @@ module Notable
   self.requests_enabled = true
   self.jobs_enabled = true
   self.mask_ips = false
-  # TODO default to true in 0.7.0
-  self.scrub_invalid_utf8 = false
+  self.scrub_invalid_utf8 = true
 
   def self.requests_enabled?
     enabled && requests_enabled
