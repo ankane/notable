@@ -6,8 +6,9 @@ module Notable
       if Notable.requests_enabled?
         # insert in same place as request_store
         app.config.middleware.insert_after ActionDispatch::RequestId, Notable::Middleware
-        # TODO switch to register_interceptor in 0.7.0
-        ActionDispatch::DebugExceptions.prepend Notable::DebugExceptions
+        ActionDispatch::DebugExceptions.register_interceptor do |request, exception|
+          request.env["action_dispatch.exception"] = exception
+        end
       end
     end
   end
