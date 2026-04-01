@@ -64,8 +64,6 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_throttled
-    skip if Rails::VERSION::STRING.to_f < 7.2
-
     get "/throttled"
     request = Notable::Request.last
     # TODO make consistent with rack-attack in 0.7.0

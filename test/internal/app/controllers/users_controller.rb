@@ -3,9 +3,7 @@ class UsersController < ActionController::Base
 
   skip_before_action :track_unverified_request, only: [:update]
 
-  if Rails::VERSION::STRING.to_f >= 7.2
-    rate_limit to: 0, within: 1.minute, only: :throttled
-  end
+  rate_limit to: 0, within: 1.minute, only: :throttled
 
   def create
     User.create(params.permit(:email))
