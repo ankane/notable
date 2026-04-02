@@ -7,6 +7,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_error
     get error_url
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Error", request.note_type
     assert_equal "RuntimeError: Test error", request.note
@@ -15,6 +16,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_not_found
     get "/not_found"
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Not Found", request.note_type
     assert_equal 404, request.status
@@ -22,12 +24,14 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_slow
     get slow_url
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Slow Request", request.note_type
   end
 
   def test_timeout
     get timeout_url
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Timeout", request.note_type
     assert_equal 503, request.status
@@ -35,6 +39,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_validation
     post users_url
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Validation Errors", request.note_type
     assert_equal "User: Email can't be blank", request.note
@@ -44,6 +49,7 @@ class RequestTest < ActionDispatch::IntegrationTest
     with_forgery_protection do
       post users_url
     end
+    assert_equal 2, Notable::Request.count
     request = Notable::Request.first
     assert_equal "Unverified Request", request.note_type
     assert_match "nil != ", request.note
@@ -58,6 +64,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_unpermitted_parameters
     post users_url, params: {email: "test@example.com", bad: "hello", other: "world"}
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Unpermitted Parameters", request.note_type
     assert_equal "bad, other", request.note
@@ -65,6 +72,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_throttled
     get "/throttled"
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Throttle", request.note_type
     assert_equal "throttle note", request.note
@@ -72,6 +80,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_rack_blocked
     get "/rack/blocked"
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Throttle", request.note_type
     assert_equal "block note", request.note
@@ -79,6 +88,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_rack_throttled
     get "/rack/throttled"
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Throttle", request.note_type
     assert_equal "throttle note", request.note
@@ -86,6 +96,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_manual
     get manual_url
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Test Note", request.note_type
     assert_equal "Test 123", request.note
@@ -108,12 +119,14 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_filtered_parameters
     get manual_url, params: {password: "secret"}
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal({"password"=>"[FILTERED]"}, request.params)
   end
 
   def test_invalid_utf8_params
     get manual_url, params: {"hello" => "\x80"}
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "Error", request.note_type
     assert_equal "ActionController::BadRequest: Invalid query parameters: Invalid encoding for parameter: �", request.note
@@ -122,6 +135,7 @@ class RequestTest < ActionDispatch::IntegrationTest
 
   def test_invalid_utf8_headers
     get manual_url, headers: {"User-Agent" => "\x80", "Referer" => "\x80"}
+    assert_equal 1, Notable::Request.count
     request = Notable::Request.last
     assert_equal "�", request.user_agent
     assert_equal "�", request.referrer
@@ -132,10 +146,11 @@ class RequestTest < ActionDispatch::IntegrationTest
 
     without_scrub_invalid_utf8 do
       get manual_url, headers: {"User-Agent" => "\x80", "Referer" => "\x80"}
-      request = Notable::Request.last
-      assert_equal "\x80", request.user_agent
-      assert_equal "\x80", request.referrer
     end
+    assert_equal 1, Notable::Request.count
+    request = Notable::Request.last
+    assert_equal "\x80", request.user_agent
+    assert_equal "\x80", request.referrer
   end
 
   def test_mask_ips
