@@ -128,7 +128,6 @@ class RequestTest < ActionDispatch::IntegrationTest
   end
 
   def test_scrub_invalid_utf8_false
-    # TODO fix
     skip if ENV["ADAPTER"] == "postgresql"
 
     without_scrub_invalid_utf8 do
