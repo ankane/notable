@@ -66,11 +66,8 @@ class RequestTest < ActionDispatch::IntegrationTest
   def test_throttled
     get "/throttled"
     request = Notable::Request.last
-    # TODO make consistent with rack-attack in 0.7.0
-    # assert_equal "Throttle", request.note_type
-    # assert_equal "throttle note", request.note
-    assert_equal "Too Many Requests", request.note_type
-    assert_nil request.note
+    assert_equal "Throttle", request.note_type
+    assert_equal "throttle note", request.note
   end
 
   def test_rack_blocked

@@ -6,7 +6,6 @@ ActiveSupport::Notifications.subscribe "rack.attack" do |_name, _start, _finish,
   end
 end
 
-# TODO uncomment in 0.7.0
-# ActiveSupport::Notifications.subscribe "rate_limit.action_controller" do |_|
-#   Notable.track "Throttle", "throttle note"
-# end
+ActiveSupport::Notifications.subscribe "rate_limit.action_controller" do |_|
+  Notable.track "Throttle", "throttle note"
+end
