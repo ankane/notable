@@ -1,4 +1,4 @@
-## 0.7.0 (unreleased)
+## 0.7.0 (2026-04-15)
 
 - Enabled `scrub_invalid_utf8` by default
 - Dropped support for Ruby < 3.3 and Rails < 7.2
